@@ -111,6 +111,14 @@ function renderPlaylistsSalvas() {
         li.classList.add("playlist-saved");
         li.textContent = `${playlist.titulo} — ${playlist.faixas.length} faixas`;
 
+        // Ao clicar numa playlist salva, mostra as faixas dela na área de resultados
+        li.addEventListener("click", () => {
+            renderResultados(playlist.faixas);
+
+            // Rola a tela até os resultados, pra ficar claro que algo mudou
+            resultsContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
         savedContainer.appendChild(li);
     });
 }
