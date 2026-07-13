@@ -182,51 +182,37 @@ function renderTracks(album) {
 
     // Seleciona o elemento da lista de faixas
     const tracksContainer =
-        // onde as faixas serão exibidas
         document.querySelector("#tracks");
 
     // Limpa o conteúdo anterior da lista de faixas    
     tracksContainer.innerHTML = "";
 
-    // Itera sobre cada faixa do álbum e cria um item de lista para cada uma
+    // Itera sobre cada faixa do álbum e cria um player compacto para cada uma
     album.tracks.items.forEach((track, index) => {
 
         const li =
             document.createElement("li");
 
-        li.textContent =
-            `${track.track_number}. ${track.name}`;
+        li.classList.add("ai-track");
 
-        // Adiciona a classe de animação de entrada nesse item
+        // Player oficial compacto do Spotify, um por faixa
+        li.innerHTML = `
+            <iframe
+                src="https://open.spotify.com/embed/track/${track.id}?utm_source=generator&theme=0"
+                width="100%"
+                height="80"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+            ></iframe>
+        `;
+
+        // Mantém a animação de entrada em cascata
         li.classList.add("animar");
-
-        // Define um atraso crescente pra cada faixa, criando o efeito cascata
         li.style.animationDelay = `${index * 0.08}s`;
 
         tracksContainer.appendChild(li);
     });
-}
-
-// ========================================
-// PLAYER DO SPOTIFY
-// ========================================
-
-// Insere o player oficial do Spotify (iframe) para o álbum atual
-function renderSpotifyPlayer(albumId) {
-
-    const playerContainer =
-        document.querySelector("#spotify-player");
-
-    playerContainer.innerHTML = `
-        <iframe
-            src="https://open.spotify.com/embed/album/${albumId}?utm_source=generator&theme=0"
-            width="100%"
-            height="352"
-            frameborder="0"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-        ></iframe>
-    `;
 }
 
 
