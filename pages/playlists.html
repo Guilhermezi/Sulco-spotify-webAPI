@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sulco — Playlists</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../asset/Sulco-branco.png">
+</head>
+<body>
+
+    <header>
+
+        <a href="../index.html" class="logo">
+            <img 
+                src="../asset/Sulco-branco-texto.png"
+                alt="Sulco" 
+                id="logo-img"
+            >
+        </a>
+
+        <nav>
+            <ul>
+
+                <li><a href="../index.html">Álbuns</a></li>
+                <li><a href="#">Playlists</a></li>
+                
+            </ul>
+        </nav>
+
+        <button id="dark-mode-toggle" class="dark-mode-toggle">
+            <i class="ri-moon-line"></i>
+        </button>
+
+    </header>
+
+    <main>
+
+        <div class="ai-prompt-box">
+            <textarea
+                id="ai-prompt"
+                placeholder="Descreva a playlist que você quer, ex: indie e lo-fi pra estudar à noite"
+                rows="3"
+            ></textarea>
+            <button id="generate-button" class="load-button">
+                Gerar com IA
+            </button>
+        </div>
+
+        <ul id="ai-results"></ul>
+
+        <h3 class="section-label">Playlists salvas</h3>
+        <ul id="saved-playlists"></ul>
+
+    </main>
+
+    <footer>
+
+        <p> <span class="destaque"> © </span> 2026 Guilherme. Todos os direitos reservados.</p>
+
+        <p class="spotify-attribution">
+            Powered by <img src="../asset/spotify.png" alt="Spotify">
+        </p>
+
+    </footer>
+
+    <script type="module" src="playlistAI.js"></script>
+    <script src="../darkMode.js"></script>
+</body>
+</html>

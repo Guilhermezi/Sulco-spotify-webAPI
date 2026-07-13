@@ -1,0 +1,615 @@
+/* ========================================
+   FONTES
+   Serifada para títulos (personalidade de "capa de disco"),
+   sans limpa para o corpo, mono para rótulos/tracklist (estética
+   de encarte impresso).
+   ======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body, main, footer, header {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ========================================
+   TOKENS
+   O header/footer (o "chrome" do player) ficam sempre escuros,
+   como no Spotify de verdade — só o conteúdo (main) alterna
+   entre claro/escuro.
+   ======================================== */
+:root {
+    --primary-color: #1db954;     /* verde Spotify, usado como acento, não como fundo */
+    --secondary-color: #191414;   /* cor de TEXTO no tema claro */
+    --surface-color: #191414;     /* fundo fixo do header/footer, em qualquer tema */
+    --accent-gold: #d9a441;       /* acento secundário — label do vinil */
+    --text-color: #fff;
+    --background-color: #f9f9fb;
+    --line: rgba(20, 24, 26, 0.12); /* linhas finas divisórias */
+    --content-width: 480px;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Work Sans', Arial, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+    /* dark mode */
+    --dark-background-color: #121212;
+    --dark-text-color: #fff;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+}
+
+/* Atribuição obrigatória do Spotify (exigida pelas diretrizes deles) */
+.spotify-attribution {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 11px;
+}
+
+.spotify-attribution img {
+    height: 45px;
+    width: auto;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box; /* Garante que paddings não quebrem as larguras */
+}
+
+body {
+    font-family: var(--font-body);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+body.dark {
+    --background-color: var(--dark-background-color);
+    --text-color: var(--dark-text-color);
+    --secondary-color: #f9f9fb; /* texto claro no dark mode */
+    --line: rgba(255, 255, 255, 0.14);
+    /* --surface-color não muda: o "chrome" do player continua grafite escuro sempre */
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+header {
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    padding: 22px 32px;
+    border-bottom: 3px solid var(--primary-color);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+}
+
+/* pequeno indicador de "on air", como o LED de um toca-discos */
+header h1::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    margin-right: 10px;
+}
+
+header button {
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+header button:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.ri-moon-line,
+.ri-sun-line {
+    display: inline-block;
+    transition: transform 0.5s ease;
+}
+
+header button:hover .ri-moon-line,
+header button:hover .ri-sun-line {
+    animation: girar 0.5s linear 1;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 28px;
+}
+
+nav ul li a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-color);
+    opacity: 0.7;
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    transform: scale(1.1);
+    opacity: 1;
+    color: var(--primary-color);
+}
+
+/* ========================================
+   MAIN
+   ======================================== */
+
+main {
+    flex: 1 0 auto; /* esse flex serve para preencher o espaço disponível */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+}
+
+li {
+    list-style: none;
+}
+
+/* ========================================
+   BUSCA
+   ======================================== */
+
+.pesquisa {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: var(--content-width);
+    margin-bottom: 36px;
+}
+
+#search-input {
+    flex: 1; /* ocupa todo o espaço disponível */
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--line);
+    padding: 10px 4px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--secondary-color);
+    transition: border-color 0.25s ease;
+}
+
+#search-input:focus {
+    outline: none;
+    border-bottom-color: var(--primary-color);
+}
+
+#search-input::placeholder {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+/* ========================================
+   RESULTADOS DA BUSCA
+   Tratados como um índice de faixas: bloco centralizado na
+   tela, itens alinhados entre si, com uma barra de acento
+   que desliza da esquerda no hover.
+   ======================================== */
+
+#search-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: var(--content-width);
+    margin-bottom: 30px;
+}
+
+#search-results li {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 14px 6px 14px 20px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 15px;
+    text-align: left;
+    color: var(--secondary-color);
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    overflow: hidden;
+    animation: aparecer 0.35s ease both;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+#search-results li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: var(--primary-color);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.25s ease;
+}
+
+#search-results li:hover {
+    padding-left: 28px;
+    color: var(--primary-color);
+}
+
+#search-results li:hover::before {
+    transform: scaleY(1);
+}
+
+/* ========================================
+   FICHA DO ÁLBUM
+   O "vinil" espiando atrás da capa é o elemento de assinatura
+   da página — puramente decorativo em CSS, sem precisar de
+   nenhuma imagem extra.
+   ======================================== */
+
+.album-info {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: var(--content-width);
+    padding-top: 20px;
+}
+
+.album-info::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    margin-left: 40px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background:
+        repeating-radial-gradient(circle at center, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 6px),
+        radial-gradient(circle at center, var(--accent-gold) 0 14%, var(--surface-color) 15% 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    animation: girar 18s linear infinite;
+    z-index: 0;
+}
+
+#album-image {
+    position: relative;
+    z-index: 1;
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+}
+
+#album-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(26px, 4vw, 40px);
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: var(--primary-color);
+    margin-top: 28px;
+    z-index: 1000;
+}
+
+/* rótulo editorial acima do título, gerado via CSS */
+#album-name::before {
+    content: "Álbum";
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    margin-bottom: 8px;
+}
+
+#album-artist {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    opacity: 0.65;
+    margin-top: 6px;
+    margin-bottom: 8px;
+}
+
+/* ========================================
+   FAIXAS
+   Mesma linguagem visual dos resultados de busca — como um
+   encarte de vinil impresso, com fonte monoespaçada.
+   ======================================== */
+
+#tracks {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 24px 0 30px;
+}
+
+#tracks li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 12px 6px 12px 20px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-align: left;
+    color: var(--secondary-color);
+    border-bottom: 1px solid var(--line);
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+#tracks li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: var(--primary-color);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.2s ease;
+}
+
+#tracks li:hover {
+    padding-left: 28px;
+    color: var(--primary-color);
+}
+
+#tracks li:hover::before {
+    transform: scaleY(1);
+}
+
+/* ========================================
+   BOTÃO
+   ======================================== */
+
+.load-button {
+    background-color: transparent;
+    border: 1.5px solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+.load-button:hover {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    transform: translateY(-1px);
+}
+
+/* ========================================
+   ANIMAÇÃO DE ENTRADA
+   ======================================== */
+
+.album-info,
+#tracks li {
+    opacity: 0;
+}
+
+.animar {
+    animation: aparecer 0.6s ease forwards;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+footer {
+    flex-shrink: 0;
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    text-align: center;
+    padding: 22px 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+footer p {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.75;
+}
+
+.destaque {
+    color: var(--primary-color);
+    opacity: 1;
+}
+
+/* ========================================
+   RESPONSIVO
+   ======================================== */
+
+@media (max-width: 600px) {
+    header {
+        padding: 18px 20px;
+    }
+
+    .album-info::before {
+        display: none; /* evita que o vinil vaze da tela em telas estreitas */
+    }
+
+    #album-image {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* respeita quem prefere menos movimento na tela */
+@media (prefers-reduced-motion: reduce) {
+    .album-info::before,
+    .animar,
+    #search-results li {
+        animation: none;
+    }
+
+    .animar {
+        opacity: 1;
+    }
+}
+
+
+.ai-prompt-box {
+    width: 100%;
+    max-width: var(--content-width);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+}
+
+#ai-prompt {
+    width: 100%;
+    resize: vertical;
+    background-color: transparent;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--secondary-color);
+}
+
+.ai-track {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: var(--content-width);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.ai-track img {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    margin: 0;
+    box-shadow: none;
+}
+
+.ai-track-info {
+    flex: 1;
+}
+
+.ai-track-name {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 14px;
+    text-align: left;
+}
+
+.ai-track-artist {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    opacity: 0.65;
+    text-align: left;
+}
+
+.ai-track-link {
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.section-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--secondary-color);
+    opacity: 0.6;
+    margin: 30px 0 10px;
+}
+
+.playlist-saved {
+    width: 100%;
+    max-width: var(--content-width);
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sulco</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="asset/Sulco-branco.png">
+</head>
+<body>
+
+    <header>
+
+        <a href="#" class="logo">
+            <img 
+                src="asset/Sulco-branco-texto.png"
+                alt="Sulco" 
+                id="logo-img"
+            >
+        </a>
+
+        <nav>
+
+            <ul>
+                <li><a href="#">Álbuns</a></li>
+                <li><a href="pages/playlists.html">Playlists</a></li>
+            </ul>
+
+        </nav>
+
+        <button id="dark-mode-toggle" class="dark-mode-toggle">
+            <i class="ri-moon-line"></i> 
+        </button>
+
+    </header>
+
+    <main>
+
+        <div class="pesquisa">
+            <input 
+                type="text" 
+                id="search-input" 
+                placeholder="Buscar álbum..."
+            >
+            <button id="search-button" class="load-button">
+                Buscar
+            </button>
+        </div>
+
+        <ul id="search-results"></ul>
+
+        <div id="album-info" class="album-info">
+            <h2 id="album-name"></h2>
+            <p id="album-artist"></p>
+            <img id="album-image" src="" alt="">
+        </div>
+
+        <ul id="tracks"></ul>
+
+    </main>
+
+    <footer>
+
+        <p> <span class="destaque"> © </span> 2026 Guilherme. Todos os direitos reservados.</p>
+
+        <p class="spotify-attribution">
+            Powered by <img src="asset/spotify.png" alt="Spotify">
+        </p>
+
+    </footer>
+
+    <script type="module" src="app.js"></script>
+    <script src="darkMode.js"></script>
+</body>
+</html>
