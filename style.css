@@ -434,6 +434,19 @@ li {
     transform: scaleY(1);
 }
 
+.spotify-player {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 20px 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.spotify-player iframe {
+    display: block;
+    border-radius: 12px;
+}
+
 /* ========================================
    BOTÃO
    ======================================== */
@@ -470,6 +483,43 @@ li {
 
 .animar {
     animation: aparecer 0.6s ease forwards;
+}
+
+
+/*=========================================
+   NOTA DE PLAYLIST
+   ======================================== */
+   
+ .playlist-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    width: 100%;
+    max-width: var(--content-width);
+    padding: 16px 18px;
+    margin-bottom: 30px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    text-align: left;
+}
+
+.playlist-note > i {
+    font-size: 18px;
+    color: var(--primary-color);
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.playlist-note p {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--secondary-color);
+    opacity: 0.85;
+}
+
+.playlist-note p:not(:last-child) {
+    margin-bottom: 10px;
 }
 
 /* ========================================

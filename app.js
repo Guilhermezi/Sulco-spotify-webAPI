@@ -169,6 +169,8 @@ function renderAlbum(album) {
         .querySelector("#album-info")
         .classList.add("animar");
 
+        // Insere o player oficial do Spotify pra esse álbum específico
+        renderSpotifyPlayer(album.id);
 }
 
 
@@ -203,6 +205,28 @@ function renderTracks(album) {
 
         tracksContainer.appendChild(li);
     });
+}
+
+// ========================================
+// PLAYER DO SPOTIFY
+// ========================================
+
+// Insere o player oficial do Spotify (iframe) para o álbum atual
+function renderSpotifyPlayer(albumId) {
+
+    const playerContainer =
+        document.querySelector("#spotify-player");
+
+    playerContainer.innerHTML = `
+        <iframe
+            src="https://open.spotify.com/embed/album/${albumId}?utm_source=generator&theme=0"
+            width="100%"
+            height="352"
+            frameborder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+        ></iframe>
+    `;
 }
 
 
