@@ -395,14 +395,6 @@ li {
     width: 100%;
     max-width: var(--content-width);
     margin: 24px 0 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#tracks li iframe {
-    display: block;
-    border-radius: 12px;
 }
 
 #tracks li {
@@ -420,7 +412,27 @@ li {
     transition: color 0.2s ease, padding-left 0.2s ease;
 }
 
+#tracks li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: var(--primary-color);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.2s ease;
+}
 
+#tracks li:hover {
+    padding-left: 28px;
+    color: var(--primary-color);
+}
+
+#tracks li:hover::before {
+    transform: scaleY(1);
+}
 
 .spotify-player {
     width: 100%;
